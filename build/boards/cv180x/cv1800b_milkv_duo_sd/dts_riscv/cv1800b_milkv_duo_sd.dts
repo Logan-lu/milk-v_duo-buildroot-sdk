@@ -9,11 +9,20 @@
 };
 
 &spi2 {
-	status = "okay";
-
-	spidev@0 {
-		status = "okay";
-	};
+  status = "okay";
+  /delete-node/ spidev@0;
+  display@0{
+  compatible = "eastrising,er-tft035-6"; //匹配驱动名称，使用st7789的话修改为sitronix,st7789v_240x320
+      
+  reg = < 0 >;
+  status = "okay";
+  spi-max-frequency = < 80000000 >;
+  spi-cpol;
+  spi-cpha;
+  dc-gpios = < &porta 24 GPIO_ACTIVE_HIGH >;  //GPIOA_24做DC脚
+  reset-gpios = < &porta 23 GPIO_ACTIVE_HIGH >; //GPIOA_23做Reset脚
+  rotation = < 180 >;
+  };
 };
 
 &uart4 {
